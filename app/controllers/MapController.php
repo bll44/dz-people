@@ -11,7 +11,7 @@ class MapController extends \BaseController {
 	{
 		$maps = Map::all();
 
-		return View::make('map/index', ['maps' => $maps]);
+		return View::make('map/index', [ 'maps' => $maps, 'activePage' => 'maps' ]);
 	}
 
 
@@ -36,15 +36,6 @@ class MapController extends \BaseController {
 		//
 	}
 
-	public function test_seat()
-	{
-		$map = Map::find(1);
-		$map->seats;
-
-		return $map;
-	}
-
-
 	/**
 	 * Display the specified resource.
 	 *
@@ -56,7 +47,8 @@ class MapController extends \BaseController {
 		$map = Map::find($id);
 		$seats = $map->seats;
 
-		return View::make('map/show', ['image' => $map->draw()->output(), 'map' => $map, 'mode' => null]);
+		return View::make('map/show', [ 'image' => $map->draw()->output(), 'map' => $map,
+									    'mode' => null, 'activePage' => 'maps' ]);
 	}
 
 
@@ -93,25 +85,6 @@ class MapController extends \BaseController {
 	public function destroy($id)
 	{
 		//
-	}
-
-	public function showSeatChange($id)
-	{
-		$user = User::find($id);
-		if( ! is_null($user->seat))
-		{
-			$map_id = $user->seat->map->id;
-			$map = Map::find($map_id);
-			$seats = $map->seats;
-		}
-		else
-		{
-			$map = Map::find(1);
-			$seats = $map->seats;
-		}
-
-		return View::make('map/show', ['mode' => 'seatChange', 'map' => $map, 
-									   'image' => $map->draw()->output(), 'user' => $user ]);
 	}
 
 

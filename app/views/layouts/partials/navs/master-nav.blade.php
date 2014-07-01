@@ -11,8 +11,8 @@
 		</div><!-- /.navbar-header -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li>{{ link_to('directory', 'Directory') }}</li>
-				<li>{{ link_to('map', 'Maps') }}</li>
+				<li id="navtab-directory">{{ link_to('directory', 'Directory') }}</li>
+				<li id="navtab-maps">{{ link_to('map', 'Maps') }}</li>
 			</ul><!-- /.nav navbar-nav (left-nav) -->
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
@@ -28,3 +28,7 @@
 		</div><!-- /.collapse navbar-collapse -->
 	</div><!-- /.container container-fluid -->
 </nav><!-- /.navbar navbar-default -->
+<script>
+var activePage = "{{ $activePage or '' }}";
+if(activePage.length > 0) $('#navtab-' + activePage).addClass('active');
+</script>

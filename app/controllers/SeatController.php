@@ -68,8 +68,9 @@ class SeatController extends \BaseController {
 			$seats = $map->seats;
 		}
 
-		return View::make('map/show', ['mode' => 'seatChange', 'map' => $map, 
-									   'image' => $map->draw()->output(), 'user' => $user ]);
+		return View::make('map/show', [ 'mode' => 'seatChange', 'map' => $map, 
+									    'image' => $map->draw()->output(), 'user' => $user,
+									    'activePage' => 'maps' ]);
 	}
 
 
