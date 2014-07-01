@@ -1,0 +1,1 @@
+<a class="navbar-brand" href="{{ URL::to('') }}"><span class="brand-color">DZ</span> People</a>

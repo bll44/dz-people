@@ -1,0 +1,29 @@
+#profile-info-container,
+#profile-btn-hud-container {
+	/*margin-top: 20px;*/
+}
+
+#directory-table tr:hover {
+	cursor: pointer;
+}
+
+.map-img {
+	width: 1140px;
+}
+
+.brand-color {
+	color: #d31145;
+}
+
+.no-seat {
+	margin-top: 150px;
+}
+
+.muted-link {
+	text-decoration: none;
+}
+.muted-link:hover {
+	text-decoration: none;
+	background: none;
+	background-color: transparent;
+}

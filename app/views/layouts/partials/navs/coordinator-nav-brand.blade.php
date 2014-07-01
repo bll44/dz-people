@@ -1,0 +1,1 @@
+<a class="navbar-brand" href="#"><span class="brand-color">DZ</span> People<small class="text-muted">coordinator</small></a>
