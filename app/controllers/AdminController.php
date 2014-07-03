@@ -41,4 +41,17 @@ class AdminController extends BaseController {
 		return json_encode(['message' => 'success']);
 	}
 
+	public function addMap()
+	{
+		return View::make('admin/cms/addMap/main');
+	}
+
+	public function uploadMap()
+	{
+		if( ! Input::hasFile('map_mage'))
+		{
+			return View::make('admin/cms/addMap/main');
+		}
+	}
+
 }

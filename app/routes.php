@@ -19,6 +19,8 @@ Route::group(['prefix' => 'ldap'], function()
 Route::get('admin', 'AdminController@index');
 Route::get('admin/userManager', 'AdminController@userManager');
 Route::get('admin/adminChange', 'AdminController@changeAdminStatus');
+Route::get('admin/cms/addMap', 'AdminController@addMap');
+Route::post('admin/cms/upload/map', 'AdminController@uploadMap');
 
 Route::group(['prefix' => 'coordinator'], function()
 {
