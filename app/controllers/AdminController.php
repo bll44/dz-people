@@ -52,6 +52,10 @@ class AdminController extends BaseController {
 		{
 			return View::make('admin/cms/addMap/main');
 		}
+		else
+		{
+			return 'File successfully uploaded.';
+		}
 	}
 
 }
