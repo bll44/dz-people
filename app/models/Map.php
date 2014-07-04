@@ -11,6 +11,8 @@ class Map extends Eloquent {
 	public $isProfile = false;
 	public $isMaintenance = false;
 
+	public $timestamps = false;
+
 
 	public function seats()
 	{

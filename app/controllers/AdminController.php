@@ -48,14 +48,29 @@ class AdminController extends BaseController {
 
 	public function uploadMap()
 	{
-		if( ! Input::hasFile('map_mage'))
+		if( ! Input::hasFile('map_image')) return Redirect::to('admin/cms/addMap');
+
+		if(Input::file('map_image')->isValid())
 		{
-			return View::make('admin/cms/addMap/main');
+			$map = new Map;
+			$map->company = Input::get('company');
+			$map->address = Input::get('address');
+			$map->city = Input::get('city');
+			$map->zip = Input::get('zip');
+			$map->floor = Input::get('floor');
+			$map->description = Input::get('description');
+			$map->image = Input::get('image');
+
+			$dirSegments = explode('/', $map->image);
+			$fileName = array_pop($dirSegments);
+			$dir = implode('/', $dirSegments);
+
+			Input::file('map_image')->move(base_path().'/public/'.$dir, $fileName);
+			$map->save();
 		}
-		else
-		{
-			return 'File successfully uploaded.';
-		}
+
+		return Redirect::to('admin/cms/addMap');
+
 	}
 
 }

@@ -8,52 +8,69 @@
 <div>
 	<small><i>* All fields are required</i></small>
 </div>
-<div class="row">
-
 	{{ Form::open(['url' => 'admin/cms/upload/map', 'files' => true, 'role' => 'form', 'id' => 'new-map-form']) }}
+		{{ Form::hidden('image', '', ['id' => 'image']) }}
+		<div class="row">
+			<div class="form-group col-md-8">
+				{{ Form::label('company', 'Company') }}
+				{{ Form::select(
+					'company',
+					['dayzim' => 'Day & Zimmermann', 'yoh' => 'Yoh'],
+					null,
+					['class' => 'form-control', 'id' => 'company']
+				) }}
+			</div>
+		</div><!-- /.row -->
+		<div class="row">
+			<div class="form-group col-md-8">
+				{{ Form::label('address', 'Address') }}
+				{{ Form::text(
+					'address',
+					'',
+					['class' => 'form-control', 'placeholder' => 'Address (e.g. 1500 Spring Garden Street)']
+				) }}
+			</div>
+		</div><!-- /.row -->
+		<div class="row">
+			<div class="form-group col-md-5">
+				{{ Form::label('city', 'City') }}
+				{{ Form::text(
+					'city', '', ['class' => 'form-control', 'placeholder' => 'City (e.g. Philadelphia)', 'id' => 'city']
+				) }}
+			</div>
+			<div class="form-group col-md-2">
+				{{ Form::label('zip', 'Zip Code') }}
+				{{ Form::text('zip', '', ['class' => 'form-control', 'placeholder' => '12345']) }}
+			</div>
+			<div class="form-group col-md-1">
+				{{ Form::label('floor', 'Floor') }}
+				{{ Form::text('floor', '', ['class' => 'form-control', 'placeholder' => '#', 'id' => 'floor']) }}
+			</div>
+		</div><!-- /.row -->
 
-		<div class="form-group col-md-8">
-			{{ Form::label('company', 'Company') }}
-			{{ Form::select(
-				'company',
-				['dayzim' => 'Day & Zimmermann', 'yoh' => 'Yoh'],
-				null,
-				['class' => 'form-control', 'id' => 'company']
-			) }}
-		</div>
-		<div class="form-group col-md-8">
-			{{ Form::label('address', 'Address') }}
-			{{ Form::text('address', '', ['class' => 'form-control', 'placeholder' => 'Address (e.g. 1500 Spring Garden Street)']) }}
-		</div>
-		<div class="form-group col-md-5" style="display: inline">
-			{{ Form::label('city', 'City') }}
-			{{ Form::text('city', '', ['class' => 'form-control', 'placeholder' => 'City (e.g. Philadelphia)', 'id' => 'city']) }}
-		</div>
-		<div class="form-group col-md-2" style="display: inline">
-			{{ Form::label('zip', 'Zip Code') }}
-			{{ Form::text('zip', '', ['class' => 'form-control', 'placeholder' => '12345']) }}
-		</div>
-		<div class="form-group col-md-1" style="display: inline">
-		{{ Form::label('floor', 'Floor') }}
-		{{ Form::text('floor', '', ['class' => 'form-control', 'placeholder' => '#', 'id' => 'floor']) }}
-		</div>
-		<div class="form-group col-md-8">
-			{{ Form::label('description', 'Map Description') }}
-			{{ Form::textarea(
-				'description', '', ['class' => 'form-control', 'placeholder' => 'Description of map...', 'rows' => '4']
-			) }}
-		</div>
-		<div class="form-group col-md-5">
-			{{ Form::label('map_image', 'Map Image') }}
-			{{ Form::file('map_image', ['id' => 'file']) }}
-			<p>Upload Map image file. File type must be `.jpeg` or `.jpg`</p>
-		</div>
-		<div class="form-group col-md-3">
-			<input class="form-control" id="input-path-preview" disabled="true" placeholder="No image" value="images/maps/">
-		</div>
-		<div class="form-group col-md-8">
-			<button type="submit" class="btn btn-success">Upload Map</button>
-		</div>
+		<div class="row">
+			<div class="form-group col-md-8">
+				{{ Form::label('description', 'Map Description') }}
+				{{ Form::textarea(
+					'description', '', ['class' => 'form-control', 'placeholder' => 'Description of map...', 'rows' => '4']
+				) }}
+			</div>
+		</div><!-- /.row -->
+		<div class="row">
+			<div class="form-group col-md-8">
+				{{ Form::label('map_image', 'Map Image') }}
+				{{ Form::file('map_image', ['id' => 'file']) }}
+				<p>Upload Map image file. File type must be `.jpeg` or `.jpg`</p>
+			</div>
+		</div><!-- /.row -->
+		<div class="row">
+			<div class="form-group col-md-2">
+				<button type="submit" class="btn btn-success">Upload Map</button>
+			</div>
+			<div class="form-group col-md-6">
+				<input class="form-control" id="input-path-preview" disabled="true" placeholder="No image" value="images/maps/">
+			</div>
+		</div><!-- /.row -->
 
 	{{ Form::close() }}
 
@@ -121,6 +138,11 @@ $('#new-map-form select').change(function() {
 $('#city').bind('focusout', function(e) {
 	path.segments.city = $(this).val().toLowerCase();
 	path.outputPreview();
+});
+
+$('#new-map-form').submit(function(e) {
+	$('#image').val(path.pathString);
+	return true;
 });
 </script>
 
