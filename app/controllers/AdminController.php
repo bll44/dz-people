@@ -48,7 +48,8 @@ class AdminController extends BaseController {
 
 	public function uploadMap()
 	{
-		if( ! Input::hasFile('map_image')) return Redirect::to('admin/cms/addMap');
+		if( ! Input::hasFile('map_image'))
+			return Redirect::to('admin/cms/addMap')->with('formError', 'Upload failed. No map image selected');
 
 		if(Input::file('map_image')->isValid())
 		{

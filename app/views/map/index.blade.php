@@ -5,10 +5,7 @@
 
 <div class="row">
 	
-	<?php $i = 0 ?>
 	@foreach($maps as $map)
-
-	<?php if($i > 2) break ?>
 
 		<div class="col-sm-6 col-md-4">
 			<div class="thumbnail">
@@ -22,8 +19,7 @@
 				</div><!-- /.caption -->
 			</div><!-- /.thumbnail -->
 		</div><!-- /.col-sm-6 col-md-4 -->
-	
-	<?php $i++ ?>
+
 	@endforeach
 
 </div><!-- /.row -->

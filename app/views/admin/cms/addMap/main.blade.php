@@ -5,6 +5,11 @@
 <div>
 	<h3>Add a New Map</h3>
 </div>
+@if(null != Session::get('formError'))
+<div class="row">
+	<p class="alert alert-danger col-md-8">{{ Session::get('formError') }}</p>
+</div><!-- /.row -->
+@endif
 <div>
 	<small><i>* All fields are required</i></small>
 </div>
