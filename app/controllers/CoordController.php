@@ -7,7 +7,7 @@ class CoordController extends \BaseController {
 		$map = Map::find(1);
 		$map->isMaintenance = true;
 
-		return View::make('coordinator/main')->withMap($map);
+		return View::make('coordinator/main', ['map' => $map, 'activePage' => 'coordinator']);
 	}
 
 	public function save()

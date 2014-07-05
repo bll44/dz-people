@@ -22,7 +22,7 @@ class AdminController extends BaseController {
 			$users = User::orderBy('displayname', 'asc')->paginate(25);
 		}
 
-		return View::make('admin/userManager/main', ['users' => $users, 'query' => $query]);
+		return View::make('admin/userManager/main', ['users' => $users, 'query' => $query, 'activePage' => 'usermgr']);
 	}
 
 	// Ajax function
@@ -43,7 +43,7 @@ class AdminController extends BaseController {
 
 	public function addMap()
 	{
-		return View::make('admin/cms/addMap/main');
+		return View::make('admin/cms/addMap/main', ['activePage' => 'addmap']);
 	}
 
 	public function uploadMap()
