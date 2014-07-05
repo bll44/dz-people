@@ -14,12 +14,14 @@ class DirectoryController extends BaseController {
 	{
 		$users = $this->user->orderBy('displayname', 'asc')->paginate(25);
 
-		return View::make('directory/main', [ 'users' => $users, 'activePage' => 'directory' ]);
+		return View::make('directory/main', [ 'users' => $users, 'activePage' => 'directory' ])->with('test', 'test');
 	}
 
 	public function search()
 	{
-		$query = Input::get('query');
+		$query = trim(Input::get('query'));
+
+		if(strlen($query) < 1) return $this->index();
 
 		$users = $this->user->search($query);
 

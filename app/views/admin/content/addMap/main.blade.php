@@ -13,7 +13,7 @@
 <div>
 	<small><i>* All fields are required</i></small>
 </div>
-	{{ Form::open(['url' => 'admin/cms/upload/map', 'files' => true, 'role' => 'form', 'id' => 'new-map-form']) }}
+	{{ Form::open(['url' => 'admin/content/upload/map', 'files' => true, 'role' => 'form', 'id' => 'new-map-form']) }}
 		{{ Form::hidden('image', '', ['id' => 'image']) }}
 		<div class="row">
 			<div class="form-group col-md-8">

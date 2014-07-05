@@ -57,9 +57,12 @@
 
 <script>
 
-$('tr').click(function() {
+$('tr').not('tr:first').click(function() {
 	var id = $(this).attr('id');
-	window.location = "{{ URL::to('profile') }}" + '/' + id;
+	window.location = "{{ URL::to('profile') }}"+'/'+id;
+});
+$(document).ready(function() {
+	$('tr:first').css('cursor', 'default');
 });
 
 </script>

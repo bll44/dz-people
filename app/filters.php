@@ -113,3 +113,10 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+// check if user is admin before accessing certain areas of the site
+Route::filter('admin', function()
+{
+	if( ! Session::get('logged_in_user')->admin)
+		return Redirect::to('directory');
+});

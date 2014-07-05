@@ -10,17 +10,17 @@ Route::resource('profile', 'ProfileController');
 
 Route::resource('map', 'MapController');
 
-Route::group(['prefix' => 'ldap'], function()
-{
-	Route::get('/pull', 'LdapController@pull');
-});
+Route::get('ldap/pull', ['before' => 'admin', 'uses' => 'LdapController@pull']);
 
 // Admin functions' routes
-Route::get('admin', 'AdminController@index');
-Route::get('admin/userManager', 'AdminController@userManager');
-Route::get('admin/adminChange', 'AdminController@changeAdminStatus');
-Route::get('admin/cms/addMap', 'AdminController@addMap');
-Route::post('admin/cms/upload/map', 'AdminController@uploadMap');
+Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
+{
+	Route::get('/', 'AdminController@index');
+	Route::get('/userManager', 'AdminController@userManager');
+	Route::get('/adminChange', 'AdminController@changeAdminStatus');
+	Route::get('/content/addMap', 'AdminController@addMap');
+	Route::post('/content/upload/map', 'AdminController@uploadMap');
+});
 
 Route::group(['prefix' => 'coordinator'], function()
 {
