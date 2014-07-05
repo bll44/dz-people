@@ -46,7 +46,8 @@
 			</ul><!-- /.list-group -->
 
 		</div><!-- /#profile-info-container -->
-
+		
+		@if(Session::get('logged_in_user')->admin)
 		<div id="profile-btn-hud-container" class="col-sm-5">
 			<p>
 				{{ Form::open(['route' => ['seat.edit', $user->objectguid], 'method' => 'get']) }}
@@ -62,6 +63,7 @@
 			</p>
 			@endif
 		</div>
+		@endif
 
 	</div><!-- /.col-md-12 -->
 

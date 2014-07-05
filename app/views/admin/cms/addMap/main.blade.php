@@ -100,7 +100,6 @@ path.createPathString = function() {
 	for(var x in this.segments)
 	{
 		if(this.segments[x] === null) break;
-
 		this.pathString += this.segments[x] + '/';
 	}
 	this.pathString = this.pathString.substring(0, this.pathString.length - 1);
@@ -110,41 +109,34 @@ path.outputPreview = function() {
 	this.element.val(this.pathString);
 };
 $('#file').change(function() {
-
 	var splitPath = $(this).val().split('\\'),
 		fileName = splitPath[splitPath.length - 1],
 		pos = fileName.lastIndexOf('.'),
 		fileExt = fileName.substring(pos + 1);
-
 	if(fileExt !== 'jpg' && fileExt !== 'jpeg')
 	{
 		alert('File type must be `.jpeg` or `.jpg`. Please choose a different file.');
 		$(this).val('');
 		return false;
 	}
-
 	if((floor = $('#floor').val()) > 0)
 	{
 		path.segments.file = 'floor-' + floor + '.' + fileExt;
 		path.outputPreview();
 	}
 });
-
 $(document).ready(function() {
 	path.segments.company = $('#company').val();
 	path.outputPreview();
 });
-
 $('#new-map-form select').change(function() {
 	path.segments[$(this).attr('id')] = $(this).val();
 	path.outputPreview();
 });
-
 $('#city').bind('focusout', function(e) {
 	path.segments.city = $(this).val().toLowerCase();
 	path.outputPreview();
 });
-
 $('#new-map-form').submit(function(e) {
 	$('#image').val(path.pathString);
 	return true;

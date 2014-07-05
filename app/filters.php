@@ -13,9 +13,9 @@
 
 App::before(function($request)
 {
+	$username = explode('\\', $_SERVER['REMOTE_USER'])[1];
 	if(null === Session::get('logged_in_user'))
 	{
-		$username = explode('\\', $_SERVER['REMOTE_USER'])[1];
 		$user = DB::table('users')->where('username', $username)->first();
 
 		// if user does not exist in database, block access to site.
@@ -28,6 +28,15 @@ App::before(function($request)
 			return Response::make($view);
 		}
 
+		Session::put('logged_in_user', $user);
+	}
+	elseif(null !== Session::get('logged_in_user'))
+	{
+		if(Session::get('logged_in_user') !== $username)
+			$user = DB::table('users')->where('username', $username)->first();
+
+		Session::flush();
+		Session::regenerate();
 		Session::put('logged_in_user', $user);
 	}
 });

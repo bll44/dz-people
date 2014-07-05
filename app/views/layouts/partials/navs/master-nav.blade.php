@@ -13,6 +13,9 @@
 			<ul class="nav navbar-nav">
 				<li id="navtab-directory">{{ link_to('directory', 'Directory') }}</li>
 				<li id="navtab-maps">{{ link_to('map', 'Maps') }}</li>
+				@if(Session::get('logged_in_user')->admin)
+				<li id="navtab-admin">{{ link_to('admin', 'Admin Page') }}</li>
+				@endif
 			</ul><!-- /.nav navbar-nav (left-nav) -->
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown">
