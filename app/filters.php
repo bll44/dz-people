@@ -13,7 +13,7 @@
 
 App::before(function($request)
 {
-	$username = explode('\\', $_SERVER['REMOTE_USER'])[1];
+	$username = strtolower(explode('\\', $_SERVER['REMOTE_USER'])[1]);
 	if(null === Session::get('logged_in_user'))
 	{
 		$user = DB::table('users')->where('username', $username)->first();
@@ -32,12 +32,13 @@ App::before(function($request)
 	}
 	elseif(null !== Session::get('logged_in_user'))
 	{
-		if(Session::get('logged_in_user') !== $username)
+		if(strtolower(Session::get('logged_in_user')->username) !== $username)
+		{
 			$user = DB::table('users')->where('username', $username)->first();
-
-		Session::flush();
-		Session::regenerate();
-		Session::put('logged_in_user', $user);
+			Session::flush();
+			Session::regenerate();
+			Session::put('logged_in_user', $user);
+		}
 	}
 });
 

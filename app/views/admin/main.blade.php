@@ -6,7 +6,7 @@
 <p>{{ link_to('ldap/pull', 'Refresh LDAP data', ['target' => '_blank', 'class' => 'confirm']) }}</p>
 <p>{{ link_to('coordinator', 'Seat coordinator application') }}</p>
 <p>{{ link_to('admin/userManager', 'User manager') }}</p>
-<p>{{ link_to('admin/cms/addMap', 'Add maps') }}</p>
+<p>{{ link_to('admin/content/addMap', 'Add maps') }}</p>
 
 <script>
 

@@ -22,6 +22,7 @@
 <tr>
 	<th>Name</th>
 	<th>Admin</th>
+	<th>Title</th>
 </tr>
 </thead>
 <tbody>
@@ -48,6 +49,7 @@
 		@endif
 		</div>
 	</td>
+	<td>{{ $user->title }}</td>
 </tr>
 
 @endforeach

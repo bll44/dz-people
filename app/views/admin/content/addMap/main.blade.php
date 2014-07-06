@@ -5,11 +5,17 @@
 <div>
 	<h3>Add a New Map</h3>
 </div>
-@if(null != Session::get('formError'))
-<div class="row">
-	<p class="alert alert-danger col-md-8">{{ Session::get('formError') }}</p>
-</div><!-- /.row -->
+
+@if(null != Session::get('message'))
+	<div class="row">
+		@if(Session::get('status'))
+			<p class="alert alert-success col-md-8">{{ Session::get('message') }}</p>
+		@else
+			<p class="alert alert-danger col-md-8">{{ Session::get('message') }}</p>
+		@endif
+		</div><!-- /.row -->
 @endif
+
 <div>
 	<small><i>* All fields are required</i></small>
 </div>
@@ -27,7 +33,7 @@
 			</div>
 		</div><!-- /.row -->
 		<div class="row">
-			<div class="form-group col-md-8">
+			<div class="form-group col-md-7">
 				{{ Form::label('address', 'Address') }}
 				{{ Form::text(
 					'address',
@@ -35,9 +41,13 @@
 					['class' => 'form-control', 'placeholder' => 'Address (e.g. 1500 Spring Garden Street)']
 				) }}
 			</div>
+			<div class="form-group col-md-1">
+				{{ Form::label('floor', 'Floor') }}
+				{{ Form::text('floor', '', ['class' => 'form-control', 'placeholder' => '#', 'id' => 'floor']) }}
+			</div>
 		</div><!-- /.row -->
 		<div class="row">
-			<div class="form-group col-md-5">
+			<div class="form-group col-md-6">
 				{{ Form::label('city', 'City') }}
 				{{ Form::text(
 					'city', '', ['class' => 'form-control', 'placeholder' => 'City (e.g. Philadelphia)', 'id' => 'city']
@@ -46,10 +56,6 @@
 			<div class="form-group col-md-2">
 				{{ Form::label('zip', 'Zip Code') }}
 				{{ Form::text('zip', '', ['class' => 'form-control', 'placeholder' => '12345']) }}
-			</div>
-			<div class="form-group col-md-1">
-				{{ Form::label('floor', 'Floor') }}
-				{{ Form::text('floor', '', ['class' => 'form-control', 'placeholder' => '#', 'id' => 'floor']) }}
 			</div>
 		</div><!-- /.row -->
 

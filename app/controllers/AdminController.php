@@ -43,13 +43,13 @@ class AdminController extends BaseController {
 
 	public function addMap()
 	{
-		return View::make('admin/cms/addMap/main', ['activePage' => 'addmap']);
+		return View::make('admin/content/addMap/main', ['activePage' => 'addmap']);
 	}
 
 	public function uploadMap()
 	{
 		if( ! Input::hasFile('map_image'))
-			return Redirect::to('admin/cms/addMap')->with('formError', 'Upload failed. No map image selected');
+			return Redirect::to('admin/content/addMap')->with(['status' => 0, 'message' => 'Map failed to upload']);
 
 		if(Input::file('map_image')->isValid())
 		{
@@ -70,7 +70,7 @@ class AdminController extends BaseController {
 			$map->save();
 		}
 
-		return Redirect::to('admin/cms/addMap');
+		return Redirect::to('admin/content/addMap')->with(['status' => 1, 'message' => 'Map successfully uploaded']);
 
 	}
 

@@ -31,3 +31,15 @@ Route::group(['prefix' => 'coordinator'], function()
 
 Route::get('seat/{id}', 'SeatController@update');
 Route::resource('seat', 'SeatController');
+
+Route::get('filesystem', function()
+{
+	if(File::exists('images/maps/dayzim/philadelphia'))
+	{
+		return 'file exists';
+	}
+	else
+	{
+		return 'file does not exist';
+	}
+});
