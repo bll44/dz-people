@@ -43,3 +43,21 @@ Route::get('filesystem', function()
 		return 'file does not exist';
 	}
 });
+
+Route::get('installPrinter', function()
+{
+	// $powershell = 'powershell.exe -ExecutionPolicy Unrestricted ';
+	// $path = base_path().'\\app\\powershell\\';
+	// $script = 'install_printer.ps1';
+	// $errorRedirect = ' 2>&1';
+	// $cmd = $powershell . $path . $script . $errorRedirect;
+
+	// $output = shell_exec($cmd);
+
+	// echo '<pre>';
+	// echo $output;
+	// echo '</pre>';
+	// return;
+
+	return View::make('printer/install');
+});
