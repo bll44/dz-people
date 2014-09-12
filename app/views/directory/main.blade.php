@@ -32,6 +32,7 @@
 	<tr>
 		<th>Name</th>
 		<th>Email</th>
+		<th>Phone</th>
 		<th>Company</th>
 		<th>Department</th>
 	</tr>
@@ -43,6 +44,7 @@
 <tr id="{{ $user->objectguid }}">
 	<td>{{ $user->displayname }}</td>
 	<td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+	<td>{{ $user->phone }}</td>
 	<td>{{ $user->company }}</td>
 	<td>{{ $user->department }}</td>
 </tr>

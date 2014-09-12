@@ -1,4 +1,2 @@
-﻿$printerPath = "\\phlprint01\PHL0506-WC5745"
-$obj = New-Object -ComObject WScript.Network
-$obj.AddWindowsPrinterConnection($printerPath)
-$obj.SetDefaultPrinter($printerPath)
+﻿(New-Object -ComObject WScript.Network).AddWindowsPrinterConnection("\\phlprint01\PHL0904-WC5755")
+write-host 'complete'

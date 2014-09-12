@@ -6,7 +6,7 @@ class Ldap {
 	protected static $server = '172.25.0.23';
 	protected static $port = 389;
 	protected static $rdn = 'adm_latshab';
-	protected static $password = 'myDayzimpwdbl01!';
+	protected static $password = 'myDayzimpwdbl02@';
 	protected static $root_dn = ['OU=Users', 'OU=1500 SG', 'OU=Philadelphia\, PA', 'OU=DZ - Corporate', 'DC=corp', 'DC=dayzim', 'DC=com'];
 
 	// Info for 536 N 34th Street //
@@ -49,7 +49,7 @@ class Ldap {
 
 	public function get()
 	{
-		
+
 		$entries = ldap_get_entries($this->conn, $this->search);
 
 		$this->num_entries = array_shift($entries);
@@ -64,12 +64,12 @@ class Ldap {
 			{
 				$key = $entries[$i][$x];
 				$value =& $entries[$i][$key][0];
-				
+
 				switch ($key)
 				{
 
 					case 'objectguid' :
-						$value = bin2hex($value);		
+						$value = bin2hex($value);
 					break;
 
 					case 'objectsid' :
@@ -99,6 +99,7 @@ class Ldap {
 
 					case 'telephonenumber' :
 						$key = 'phone';
+						$value = preg_replace('/[^0-9]/', '', $value);
 					break;
 
 				}
@@ -116,6 +117,23 @@ class Ldap {
 	private function winToDate(&$value)
 	{
 		$value = substr($value, 0, 4) . '-' . substr($value, 4, 2) . '-' . substr($value, 6, 2);
+	}
+
+	public static function daysSinceUpdate()
+	{
+		$refresh_date = User::first()->last_refresh;
+		$today = new DateTime;
+
+		$dayGap = (strtotime($today->format('Y-m-d h:i:s')) - strtotime($refresh_date)) / (60 * 60 * 24);
+
+		if($dayGap < 1)
+		{
+			return 0;
+		}
+		else
+		{
+			return round($dayGap, 1);
+		}
 	}
 
 }

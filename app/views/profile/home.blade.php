@@ -41,12 +41,18 @@
 					</span>
 					{{ Dates::getYearsExperience($user->start_date) }}
 				</li>
+				<li class="list-group-item text-right">
+					<span class="pull-left">
+						<strong>Phone</strong>
+					</span>
+					{{ $user->phone }}
+				</li>
 				<!-- end list items -->
 
 			</ul><!-- /.list-group -->
 
 		</div><!-- /#profile-info-container -->
-		
+
 		@if(Session::get('logged_in_user')->admin)
 		<div id="profile-btn-hud-container" class="col-sm-5">
 			<p>
@@ -73,7 +79,7 @@
 
 <img src="{{ $image }}" class="map-img" usemap="#seat-map"/>
 
-<map name="seat-map">	
+<map name="seat-map">
 	<area shape="rect" coords="{{ $seat->x1 }}, {{ $seat->y1 }}, {{ $seat->x2 }}, {{ $seat->y2 }}">
 </map><!-- /seat-map -->
 

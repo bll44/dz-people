@@ -10,8 +10,6 @@ Route::resource('profile', 'ProfileController');
 
 Route::resource('map', 'MapController');
 
-Route::get('ldap/pull', ['before' => 'admin', 'uses' => 'LdapController@pull']);
-
 // Admin functions' routes
 Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
 {
@@ -20,6 +18,7 @@ Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
 	Route::get('/adminChange', 'AdminController@changeAdminStatus');
 	Route::get('/content/addMap', 'AdminController@addMap');
 	Route::post('/content/upload/map', 'AdminController@uploadMap');
+	Route::get('/ldap/pull', 'LdapController@pull');
 });
 
 Route::group(['prefix' => 'coordinator'], function()
@@ -44,20 +43,7 @@ Route::get('filesystem', function()
 	}
 });
 
-Route::get('installPrinter', function()
+Route::get('getToday', function()
 {
-	// $powershell = 'powershell.exe -ExecutionPolicy Unrestricted ';
-	// $path = base_path().'\\app\\powershell\\';
-	// $script = 'install_printer.ps1';
-	// $errorRedirect = ' 2>&1';
-	// $cmd = $powershell . $path . $script . $errorRedirect;
-
-	// $output = shell_exec($cmd);
-
-	// echo '<pre>';
-	// echo $output;
-	// echo '</pre>';
-	// return;
-
-	return View::make('printer/install');
+	return LDAP::daysSinceUpdate();
 });
