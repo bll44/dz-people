@@ -16,8 +16,12 @@ class CreateMapsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('company');
-			$table->string('location');
+			$table->string('address');
+			$table->string('city');
 			$table->integer('floor');
+			$table->bigInteger('zip');
+			$table->string('description', 500)->nullable();
+			$table->string('image')->nullable();
 		});
 	}
 

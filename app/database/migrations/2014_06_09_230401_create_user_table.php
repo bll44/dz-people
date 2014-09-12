@@ -25,7 +25,9 @@ class CreateUserTable extends Migration {
 			$table->string('title')->nullable();
 			$table->bigInteger('phone')->nullable();
 			$table->date('start_date')->nullable();
+			$table->tinyInteger('admin')->default(0);
 			$table->timestamps();
+			$table->dateTime('last_refresh')->nullable();
 		});
 	}
 
