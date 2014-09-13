@@ -11,7 +11,7 @@
 		</div><!-- /.navbar-header -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li id="navtab-admin">{{ link_to('admin', 'Admin Page') }}</li>
+				<li id="navtab-admin">{{ link_to('admin', 'Admin Home') }}</li>
 				<li id="navtab-directory">{{ link_to('directory', 'Main Site') }}</li>
 				@include('layouts/partials/navs/admin-apps-dropdown')
 			</ul><!-- /.nav navbar-nav (left-nav) -->

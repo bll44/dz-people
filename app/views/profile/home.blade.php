@@ -2,6 +2,14 @@
 
 @section('content')
 
+<style>
+
+#profile-btn-hud-container input[type=submit] {
+	width: 120px;
+}
+
+</style>
+
 <div class="row">
 
 	<div class="col-md-12">
@@ -56,9 +64,11 @@
 		@if(Session::get('logged_in_user')->admin)
 		<div id="profile-btn-hud-container" class="col-sm-5">
 			<p>
-				{{ Form::open(['route' => ['seat.edit', $user->objectguid], 'method' => 'get']) }}
-				{{ Form::submit('Change Seat', ['class' => 'btn btn-sm btn-primary']) }}
-				{{ Form::close() }}
+				@if( ! is_null($user->seat))
+					{{ Form::open(['url' => 'seat/' . $user->objectguid . '/' . $user->seat->map->id . '/edit', 'method' => 'get']) }}
+					{{ Form::submit('Change Seat', ['class' => 'btn btn-sm btn-primary']) }}
+					{{ Form::close() }}
+				@endif
 			</p>
 
 			@if( ! is_null($user->seat))
@@ -86,7 +96,15 @@
 @else
 
 <div class="text-center no-seat">
-<h3>No Seat</h3>
+	@if(Session::get('logged_in_user')->admin)
+		<div>
+			{{ Form::open(['url' => 'seat/' . $user->objectguid . '/1/edit', 'method' => 'get']) }}
+			{{ Form::submit("Assign a Seat to {$user->firstname}", ['class' => 'btn btn-lg btn-primary']) }}
+			{{ Form::close() }}
+		</div>
+	@else
+		<h3>No Seat</h3>
+	@endif
 </div>
 
 @endif

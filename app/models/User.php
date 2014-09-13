@@ -57,14 +57,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 									'lastname' => $this->lastname,
 									'displayname' => $this->displayname
 								]);
-		
+
 		return $this;
 	}
 
 	public function search($query)
 	{
 		if(strlen($query) < 1) return Redirect::to('directory');
-		
+
 		$columns = ['displayname', 'lastname', 'firstname', 'username'];
 
 		$terms = explode(' ', $query);
@@ -79,5 +79,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		}
 
 		return $sth->orderBy('displayname')->paginate(25);
+	}
+
+	// retrieve profile picture
+	public function photo()
+	{
+		return $this->hasOne('Photo');
 	}
 }

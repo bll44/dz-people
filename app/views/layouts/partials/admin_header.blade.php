@@ -11,4 +11,6 @@
 	{{ HTML::style('css/sb_admin_2/font-awesome-4.1.0/css/font-awesome.min.css') }}
 	{{ HTML::style('css/style.css') }}
 
+	{{ HTML::script('js/sb_admin_2/jquery-1.11.0.js') }}
+
 </head>

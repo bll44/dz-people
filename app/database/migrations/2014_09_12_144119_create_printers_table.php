@@ -15,13 +15,13 @@ class CreatePrintersTable extends Migration {
 		Schema::create('printers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name')->nullable();
-			$table->string('path')->nullable();
-			$table->integer('floor')->nullable();
+			$table->string('name');
+			$table->string('path');
 			$table->integer('x1')->nullable();
 			$table->integer('y1')->nullable();
 			$table->integer('x2')->nullable();
-			$table->integer('map_id')->nullable();
+			$table->integer('y2')->nullable();
+			$table->integer('map_id');
 			$table->timestamps();
 		});
 	}

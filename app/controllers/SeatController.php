@@ -53,7 +53,7 @@ class SeatController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit($id, $map_id)
 	{
 		$user = User::find($id);
 		if( ! is_null($user->seat))
@@ -64,13 +64,14 @@ class SeatController extends \BaseController {
 		}
 		else
 		{
-			$map = Map::find(1);
+			$map = Map::find($map_id);
 			$seats = $map->seats;
 		}
+		$maps = Map::all();
 
-		return View::make('map/show', [ 'mode' => 'seatChange', 'map' => $map, 
+		return View::make('map/show', [ 'mode' => 'seatChange', 'map' => $map,
 									    'image' => $map->draw()->output(), 'user' => $user,
-									    'activePage' => 'maps' ]);
+									    'activePage' => 'maps', 'maps' => $maps ]);
 	}
 
 

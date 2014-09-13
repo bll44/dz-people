@@ -87,5 +87,17 @@ class MapController extends \BaseController {
 		//
 	}
 
+	public function getThumbs()
+	{
+		$objGuid = Input::get('userId');
+		$maps = Map::all();
+		if( ! is_null($objGuid))
+			$returnData = ['maps' => $maps, 'objGuid' => $objGuid];
+		else
+			$returnData = ['maps' => $maps];
+
+		return View::make('map/partials/seatChanges/modalThumbs', $returnData);
+	}
+
 
 }

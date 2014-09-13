@@ -13,16 +13,21 @@
 
 App::before(function($request)
 {
-	$username = strtolower(explode('\\', $_SERVER['REMOTE_USER'])[1]);
+	// un-comment this line when at the Day & Zimmermann office
+	// $username = strtolower(explode('\\', $_SERVER['REMOTE_USER'])[1]);
 	if(null === Session::get('logged_in_user'))
 	{
-		$user = DB::table('users')->where('username', $username)->first();
+		$user = DB::table('users')->where('username', 'LatshaB')->first();
 
 		// if user does not exist in database, block access to site.
 		if(is_null($user))
 		{
-			$error = $_SERVER['REMOTE_USER'];
-			$error .= ' is not authorized.';
+			// temporary while at home due to lack of LDAP configurations
+			$error = 'Could not find user when setting session.';
+
+			// un-comment these two lines when at Day & Zimmermann
+			// $error = $_SERVER['REMOTE_USER'];
+			// $error .= ' is not authorized.';
 			$view = View::make('errors/403')->withError($error);
 
 			return Response::make($view);
@@ -32,9 +37,11 @@ App::before(function($request)
 	}
 	elseif(null !== Session::get('logged_in_user'))
 	{
-		if(strtolower(Session::get('logged_in_user')->username) !== $username)
+		// switch commented line with un-commented line when at Day & Zimmermann
+		// if(strtolower(Session::get('logged_in_user')->username) !== $username)
+		if(strtolower(Session::get('logged_in_user')->username) !== 'latshab')
 		{
-			$user = DB::table('users')->where('username', $username)->first();
+			$user = DB::table('users')->where('username', 'LatshaB')->first();
 			Session::flush();
 			Session::regenerate();
 			Session::put('logged_in_user', $user);

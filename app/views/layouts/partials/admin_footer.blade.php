@@ -1,6 +1,5 @@
 <footer>
 
-{{ HTML::script('js/sb_admin_2/jquery-1.11.0.js') }}
 {{ HTML::script('js/sb_admin_2/bootstrap.min.js') }}
 {{ HTML::script('js/sb_admin_2/plugins/metisMenu/metisMenu.min.js') }}
 

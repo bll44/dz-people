@@ -2,21 +2,20 @@
 
 class Ldap {
 
-	// Info for Day & Zimmermann //
+	/* Info for Day & Zimmermann */
 	protected static $server = '172.25.0.23';
 	protected static $port = 389;
 	protected static $rdn = 'adm_latshab';
 	protected static $password = 'myDayzimpwdbl02@';
 	protected static $root_dn = ['OU=Users', 'OU=1500 SG', 'OU=Philadelphia\, PA', 'OU=DZ - Corporate', 'DC=corp', 'DC=dayzim', 'DC=com'];
 
-	// Info for 536 N 34th Street //
-	/*
-	protected static $server = '192.168.190.140';
-	protected static $port = 389;
-	protected static $rdn = '_phpldap';
-	protected static $password = '3v0lve2o14!';
-	protected static $root_dn = ['OU=Users', 'OU=DZ People', 'DC=main', 'DC=dzpeople', 'DC=com'];
-	*/
+	/* Info for 536 N 34th Street */
+	// protected static $server = '10.0.0.16';
+	// protected static $port = 389;
+	// protected static $rdn = '_phpldap';
+	// protected static $password = '536N34th';
+	// protected static $root_dn = ['OU=Users', 'OU=536N34th', 'DC=cash', 'DC=money', 'DC=com'];
+
 
 	protected $conn, $bind;
 
@@ -132,7 +131,7 @@ class Ldap {
 		}
 		else
 		{
-			return round($dayGap, 1);
+			return round($dayGap);
 		}
 	}
 

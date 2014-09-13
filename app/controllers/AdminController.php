@@ -4,7 +4,13 @@ class AdminController extends BaseController {
 
 	public function index()
 	{
-		return View::make('admin/main', ['activePage' => 'admin']);
+		$users = User::all()->count();
+		$maps = Map::all()->count();
+		$printers = Printer::all()->count();
+		return View::make(
+			'admin/main',
+			['activePage' => 'admin', 'users' => $users, 'maps' => $maps, 'printers' => $printers]
+		);
 	}
 
 	public function userManager()
@@ -37,6 +43,8 @@ class AdminController extends BaseController {
 		$admin = ($status === 'yes') ? 1 : null;
 		$user->admin = $admin;
 		$user->save();
+
+		Session::put('logged_in_user', $user);
 
 		return json_encode(['message' => 'success']);
 	}

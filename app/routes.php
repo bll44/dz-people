@@ -8,9 +8,10 @@ Route::get('directory/search', 'DirectoryController@search');
 Route::get('profile/changeseat', 'ProfileController@changeSeat');
 Route::resource('profile', 'ProfileController');
 
+Route::post('map/thumbs', 'MapController@getThumbs');
 Route::resource('map', 'MapController');
 
-// Admin functions' routes
+// Admin function routes
 Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
 {
 	Route::get('/', 'AdminController@index');
@@ -19,6 +20,8 @@ Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
 	Route::get('/content/addMap', 'AdminController@addMap');
 	Route::post('/content/upload/map', 'AdminController@uploadMap');
 	Route::get('/ldap/pull', 'LdapController@pull');
+
+	Route::resource('printmgmt', 'PrinterController');
 });
 
 Route::group(['prefix' => 'coordinator'], function()
@@ -29,6 +32,7 @@ Route::group(['prefix' => 'coordinator'], function()
 });
 
 Route::get('seat/{id}', 'SeatController@update');
+Route::get('seat/{userId}/{mapId}/edit', 'SeatController@edit');
 Route::resource('seat', 'SeatController');
 
 Route::get('filesystem', function()
@@ -41,9 +45,4 @@ Route::get('filesystem', function()
 	{
 		return 'file does not exist';
 	}
-});
-
-Route::get('getToday', function()
-{
-	return LDAP::daysSinceUpdate();
 });
