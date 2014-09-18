@@ -83,6 +83,18 @@ class SeatController extends \BaseController {
 	 */
 	public function update($id)
 	{
+
+		if(Input::has('printer'))
+		{
+			$seat = Seat::find($id);
+			$seat->printer_id = Input::get('printer');
+			$seat->save();
+
+			$printer = Printer::find(Input::get('printer'));
+
+			return Redirect::to('admin')->with('actionMessage', "Printer {$printer->name} added successfully");
+		}
+
 		$user_id = Input::get('user');
 		$user = User::find($user_id);
 		if( ! is_null($user->seat))

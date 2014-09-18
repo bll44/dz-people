@@ -2,13 +2,6 @@
 
 class MapController extends \BaseController {
 
-	protected $map;
-
-	public function __construct(Map $map)
-	{
-		$this->map = $map;
-	}
-
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,7 +11,7 @@ class MapController extends \BaseController {
 	{
 		$maps = Map::all();
 
-		return View::make('map.index', [ 'maps' => $maps, 'activePage' => 'maps', 'mode' => 'overview' ]);
+		return View::make('map/index', [ 'maps' => $maps, 'activePage' => 'maps' ]);
 	}
 
 
@@ -43,20 +36,19 @@ class MapController extends \BaseController {
 		//
 	}
 
-
 	/**
 	 * Display the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id, $viewMode)
+	public function show($id)
 	{
-		$this->map = Map::find($id);
+		$map = Map::find($id);
+		$seats = $map->seats;
 
-		if($viewMode === 'overview') $this->map->drawOverview();
-
-		return View::make('map.show', ['map' => $this->map, 'image' => $this->map->drawOverview->output()]);
+		return View::make('map/show', [ 'image' => $map->draw()->output(), 'map' => $map, 'maps' => Map::all(),
+									    'mode' => null, 'activePage' => 'maps', 'mode' => 'overview' ]);
 	}
 
 
@@ -93,6 +85,18 @@ class MapController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function getThumbs()
+	{
+		$objGuid = Input::get('userId');
+		$maps = Map::all();
+		if( ! is_null($objGuid))
+			$returnData = ['maps' => $maps, 'objGuid' => $objGuid];
+		else
+			$returnData = ['maps' => $maps];
+
+		return View::make('map/partials/seatChanges/modalThumbs', $returnData);
 	}
 
 

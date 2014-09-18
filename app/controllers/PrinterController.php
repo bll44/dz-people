@@ -17,7 +17,7 @@ class PrinterController extends \BaseController {
 	{
 		$printers = Printer::all();
 
-		return View::make('printmgmt.index', ['activePage' => 'printmgmt', 'printers' => $printers]);
+		return View::make('admin.printmgmt.index', ['activePage' => 'printmgmt', 'printers' => $printers]);
 	}
 
 
@@ -39,7 +39,8 @@ class PrinterController extends \BaseController {
 	 */
 	public function store()
 	{
-		$map = Map::where('company', Input::get('company'))->where('floor', Input::get('floor'))->first();
+		$map = Map::where('company_code', Input::get('company'))->where('floor', Input::get('floor'))->first();
+		$map->isPrinter = true;
 
 		$maps = Map::all();
 
@@ -47,12 +48,13 @@ class PrinterController extends \BaseController {
 		$this->printer->path = Input::get('path');
 		$this->printer->map_id = $map->id;
 
-		Session::put('newPrinter', $this->printer);
+		if($this->printer->save())
+		{
+			return View::make('map/printer_show', ['map' => $map, 'image' => $map->draw()->output(),
+									       		   'maps' => $maps, 'printer' => $this->printer]);
+		}
 
-		return View::make('map/show', [ 'mode' => 'seatChange', 'map' => $map,
-									    'image' => $map->draw()->output(),
-									    'maps' => $maps ]);
-
+		// Session::put('newPrinter', $this->printer);
 	}
 
 

@@ -2,6 +2,8 @@
 	<title>DZ People - Admin</title>
 
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 	{{ HTML::style('css/sb_admin_2/bootstrap.min.css') }}
 	{{ HTML::style('css/sb_admin_2/plugins/metisMenu/metisMenu.min.css') }}

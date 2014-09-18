@@ -10,6 +10,7 @@ class Map extends Eloquent {
 
 	public $isProfile = false;
 	public $isMaintenance = false;
+	public $isPrinter = false;
 
 	public $timestamps = false;
 
@@ -19,14 +20,61 @@ class Map extends Eloquent {
 		return $this->hasMany('Seat');
 	}
 
+	protected function prepareDrawing()
+	{
+		$this->file = base_path().'/public/'.$this->image;
+		$this->jpeg_img = @imagecreatefromjpeg($this->file);
+	}
+
+	public function drawOverview()
+	{
+		$this->prepareDrawing();
+
+		$user_color = imagecolorallocate($this->jpeg_img, 210, 57, 57);
+		$printer_color = imagecolorallocate($this->jpeg_img, 100, 149, 237);
+		$conferenceRoom_color = imagecolorallocate($this->jpeg_img, 86, 175, 98);
+
+		foreach($this->seats as $s)
+		{
+			if(null !== $s->user)
+				imagefilledrectangle($this->jpeg_img, $s->x1, $s->y1, $s->x2, $s->y2, $user_color);
+			elseif(null !== $s->printer)
+				imagefilledrectangle($this->jpeg_img, $s->x1, $s->y1, $s->x2, $s->y2, $printer_color);
+			elseif(null !== $s->conferenceRoom)
+				imagefilledrectangle($this->jpeg_img, $s->x1, $s->y1, $s->x2, $s->y2, $conferenceRoom_color);
+		}
+
+		ob_start();
+
+		imagejpeg($this->jpeg_img);
+
+		$img_data = ob_get_contents();
+
+		ob_end_clean();
+
+		$this->img64 .= base64_encode($img_data);
+
+		return $this;
+
+	}
+
 	public function draw()
 	{
 		$this->file = base_path().'/public/'.$this->image;
 		$img = @imagecreatefromjpeg($this->file);
 
 		$red = imagecolorallocate($img, 210, 57, 57);
+		$blue = imagecolorallocate($img, 100, 149, 237);
 
-		if( ! $this->isProfile)
+		if($this->isPrinter)
+		{
+			foreach($this->seats as $seat)
+			{
+				if( ! is_null($seat->printer_id))
+					imagefilledrectangle($img, $seat->x1, $seat->y1, $seat->x2, $seat->y2, $red);
+			}
+		}
+		elseif( ! $this->isProfile)
 		{
 
 			foreach($this->seats as $seat)
@@ -39,8 +87,13 @@ class Map extends Eloquent {
 				}
 				else
 				{
-					if( ! is_null($seat->user_id))
-						imagefilledrectangle($img, $seat->x1, $seat->y1, $seat->x2, $seat->y2, $red);
+					if( ! is_null($seat->user_id) || ! is_null($seat->printer_id))
+					{
+						if( ! is_null($seat->user_id))
+							imagefilledrectangle($img, $seat->x1, $seat->y1, $seat->x2, $seat->y2, $red);
+						else
+							imagefilledrectangle($img, $seat->x1, $seat->y1, $seat->x2, $seat->y2, $blue);
+					}
 				}
 			}
 
@@ -50,6 +103,11 @@ class Map extends Eloquent {
 
 			if( ! is_null($this->profileSeat->user_id))
 				imagefilledrectangle($img, $this->profileSeat->x1, $this->profileSeat->y1, $this->profileSeat->x2, $this->profileSeat->y2, $red);
+			foreach($this->seats as $seat)
+			{
+				if( ! is_null($seat->printer_id))
+					imagefilledrectangle($img, $seat->x1, $seat->y1, $seat->x2, $seat->y2, $blue);
+			}
 
 		}
 

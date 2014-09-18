@@ -12,6 +12,8 @@
 
 	</div>
 
+	@yield('scripts')
+
 @include('layouts/partials/admin_footer')
 </body>
 </html>

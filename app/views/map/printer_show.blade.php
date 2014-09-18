@@ -12,24 +12,15 @@
 	padding: 0 5px;
 }
 
-area.printer:hover {
-	cursor: pointer;
-}
-
 </style>
 
 <div class="pull-right profile-seat-btn-hud">
-	@if(isset($user))
-		<div>
-			{{ link_to("profile/{$user->objectguid}", 'Back to Profile') }}
-		</div>
-	@endif
 	<div>
 		<button type="button" class="btn btn-default" data-toggle="modal" data-target="#choose_map">Choose a Different Map</button>
 	</div>
 </div>
 
-@include('map/partials/map')
+@include('map/partials/printerMap')
 
 
 <div class="modal fade col-lg-12 col-md-12 col-sm-12 col-xs-12" id="choose_map">
@@ -41,16 +32,8 @@ area.printer:hover {
 			</div>
 			<div class="modal-body">
 
-				<div class="map_thumb_wrapper">
+				<div id="map_thumb_wrapper"></div>
 
-					@if($mode === 'overview')
-
-						@include('map.partials.thumbs')
-
-					@endif
-
-				</div>
-				<!-- /.map_thumb_wrapper -->
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
@@ -70,12 +53,12 @@ $(document).ready(function() {
 		type: 'POST',
 		data: { userId: objGuid }
 	}).done(function(data) {
-		$('.map_thumb_wrapper').html(data);
+		$('#map_thumb_wrapper').html(data);
 	});
 });
 
 </script>
-@elseif($mode !== 'overview')
+@else
 <script>
 
 $(document).ready(function() {
@@ -85,7 +68,7 @@ $(document).ready(function() {
 		type: 'POST',
 		data: { userId: null }
 	}).done(function(data) {
-		$('.map_thumb_wrapper').html(data);
+		$('#map_thumb_wrapper').html(data);
 	});
 
 });

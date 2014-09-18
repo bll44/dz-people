@@ -16,4 +16,14 @@ class Seat extends Eloquent {
 		return $this->belongsTo('Map');
 	}
 
+	public function printer()
+	{
+		return $this->belongsTo('Printer');
+	}
+
+	public function conferenceRoom()
+	{
+		return $this->belongsTo('ConferenceRoom');
+	}
+
 }

@@ -53,14 +53,15 @@
 				<div class="form-group">
 					{{ Form::label('company', 'Company') }}
 					{{ Form::select('company', array(
+						'' => ' --- ',
 						'dayzim' => 'Day & Zimmermann',
 						'yoh' => 'Yoh'
-					), null, ['class' => 'form-control']) }}
+					), null, ['class' => 'form-control', 'id' => 'company_dropdown']) }}
 				</div>
 
 				<div class="form-group">
-					{{ Form::label('floor', 'Floor') }}
-					<input type="number" name="floor" min="1" max="999" class="form-control" placeholder="Floor #">
+					{{ Form::label('floor', 'Floor', ['class' => 'hidden floor_dropdown']) }}
+					{{ Form::select('floor', array(), null, ['class' => 'form-control hidden floor_dropdown', 'placeholder' => 'Floor #']) }}
 				</div>
 
 				{{ Form::submit('Add Printer', ['class' => 'btn btn-success col-lg-12 col-md-12 col-sm-12 col-xs-12']) }}
@@ -81,8 +82,25 @@
 
 <script>
 
-$(document).ready(function() {
+$('#company_dropdown').change(function() {
+	var value = $(this).val();
 
+	$.ajax({
+		url: "{{ URL::to('admin/get_floors') }}",
+		type: 'GET',
+		data: { company_code: value },
+		dataType: 'json'
+	}).done(function(data) {
+		$('select.floor_dropdown').html('');
+		for(var i in data)
+		{
+			console.log(data[i]);
+			$('select.floor_dropdown').append(
+				"<option value='" + data[i] + "'>" + data[i] + "</option>"
+			);
+		}
+		$('.floor_dropdown').removeClass('hidden');
+	});
 });
 
 </script>
