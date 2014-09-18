@@ -43,11 +43,6 @@ area.printer:hover {
 
 				<div class="map_thumb_wrapper">
 
-					@if($mode === 'overview')
-
-						@include('map.partials.thumbs')
-
-					@endif
 
 				</div>
 				<!-- /.map_thumb_wrapper -->
@@ -60,37 +55,6 @@ area.printer:hover {
 
 @section('scripts')
 
-@if(isset($user))
-<script>
 
-$(document).ready(function() {
-	var objGuid = "{{ $user->objectguid }}"
-	$.ajax({
-		url: "{{ URL::to('map/thumbs') }}",
-		type: 'POST',
-		data: { userId: objGuid }
-	}).done(function(data) {
-		$('.map_thumb_wrapper').html(data);
-	});
-});
-
-</script>
-@elseif($mode !== 'overview')
-<script>
-
-$(document).ready(function() {
-
-	$.ajax({
-		url: "{{ URL::to('map/thumbs') }}",
-		type: 'POST',
-		data: { userId: null }
-	}).done(function(data) {
-		$('.map_thumb_wrapper').html(data);
-	});
-
-});
-
-</script>
-@endif
 
 @stop

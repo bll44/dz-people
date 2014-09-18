@@ -108,9 +108,7 @@
 		<div class="text-center no-seat">
 			@if(Session::get('logged_in_user')->admin)
 				<div>
-					{{ Form::open(['url' => 'seat/' . $user->objectguid . '/1/edit', 'method' => 'get']) }}
-					{{ Form::submit("Assign a Seat to {$user->firstname}", ['class' => 'btn btn-lg btn-primary']) }}
-					{{ Form::close() }}
+					{{ link_to("seat/{$user->objectguid}/1/edit/seatChange", "Assign a seat to {$user->firstname}", ['class' => 'btn btn-lg btn-primary']) }}
 				</div>
 			@else
 				<h3>No Seat</h3>

@@ -9,7 +9,7 @@ class ProfileController extends \BaseController {
 	 */
 	public function index()
 	{
-		// 
+		//
 	}
 
 
@@ -45,19 +45,21 @@ class ProfileController extends \BaseController {
 	{
 		$user = User::find($id);
 
-		if(null !== $seat = $user->seat)
-		{
-			$map = $seat->map;
+		return View::make('profile.home', ['user' => $user]);
 
-			$map->isProfile = true;
-			$map->profileSeat = $seat;
+		// if(null !== $seat = $user->seat)
+		// {
+		// 	$map = $seat->map;
 
-			return View::make('profile/home', ['user' => $user, 'image' => $map->draw()->output(), 'seat' => $seat]);
-		}
-		else
-		{
-			return View::make('profile/home', ['user' => $user]);
-		}
+		// 	$map->isProfile = true;
+		// 	$map->profileSeat = $seat;
+
+		// 	return View::make('profile/home', ['user' => $user, 'image' => $map->draw()->output(), 'seat' => $seat]);
+		// }
+		// else
+		// {
+		// 	return View::make('profile/home', ['user' => $user]);
+		// }
 	}
 
 

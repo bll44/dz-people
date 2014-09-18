@@ -5,6 +5,7 @@ class Map extends Eloquent {
 	protected $table = 'maps';
 	protected $img64 = 'data:image/png;base64,';
 	protected $file;
+	protected $areaTemplate = "<area shape='rect' coords='[x1],[y1],[x2],[y2]' [HREF] [TITLE]>";
 
 	public static $map_width = 1170;
 
@@ -13,6 +14,8 @@ class Map extends Eloquent {
 	public $isPrinter = false;
 
 	public $timestamps = false;
+
+	public $areas = array();
 
 
 	public function seats()
@@ -56,6 +59,66 @@ class Map extends Eloquent {
 
 		return $this;
 
+	}
+
+	public function setAreas($viewMode)
+	{
+		foreach($this->seats as $s)
+		{
+			$x1 = round($s->x1 * $this->getScale());
+			$y1 = round($s->y1 * $this->getScale());
+			$x2 = round($s->x2 * $this->getScale());
+			$y2 = round($s->y2 * $this->getScale());
+
+			switch ($viewMode) :
+
+			case 'overview' :
+
+			if(null !== $s->user)
+			{
+				$area = "<area shape='rect' coords='{$x1},{$y1},{$x2},{$y2}'";
+				$area .= " href='";
+				$area .= URL::to("profile/{$s->user_id}");
+				$area .= "' title='{$s->user->displayname}'>";
+			}
+			else
+			{
+				$area = "<area shape='rect' coords='{$x1}, {$y1}, {$x2}, {$y2}'>";
+			}
+
+			break;
+
+			case 'seatChange' :
+
+			if(null !== $s->user)
+			{
+				$href = '';
+				$title = $s->user->displayname;
+			}
+			elseif(null !== $s->printer)
+			{
+				$href = '';
+				$title = 'Printer: ' . $s->printer->name;
+			}
+			elseif(null !== $s->conferenceRoom)
+			{
+				$href = '';
+				$title = 'Conference Room: ' . $s->conferenceRoom->name;
+			}
+			else
+			{
+				$href = '';
+			}
+
+			$area = str_replace(['[x1]', '[y1]', '[x2]', '[y2]', '[HREF]', '[TITLE]'],
+									[$x1, $y1, $x2, $y2, $href, $title], $this->areaTemplate);
+
+			break;
+
+			endswitch;
+
+			$this->areas[] = $area;
+		}
 	}
 
 	public function draw()

@@ -11,7 +11,7 @@
 			<div class="input-group input-group-sm" id="directory-search">
 				<input type="text" name="query" class="form-control" placeholder="Search users..." value="{{ $query or '' }}">
 				<span class="input-group-btn">
-					<button type="submit" class="btn btn-warning" id="search-btn">Search</button>
+					<button type="submit" class="btn btn-info" id="search-btn">Search</button>
 				</span>
 			</div>
 		{{ Form::close() }}

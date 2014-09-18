@@ -45,5 +45,5 @@ Route::group(['prefix' => 'coordinator'], function()
 });
 
 Route::get('seat/{id}', 'SeatController@update');
-Route::get('seat/{userId}/{mapId}/edit', 'SeatController@edit');
+Route::get('seat/{userId}/{mapId}/edit/{viewMode}', 'SeatController@edit');
 Route::resource('seat', 'SeatController');

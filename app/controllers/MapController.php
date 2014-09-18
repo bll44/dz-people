@@ -55,8 +55,9 @@ class MapController extends \BaseController {
 		$this->map = Map::find($id);
 
 		if($viewMode === 'overview') $this->map->drawOverview();
+		$this->map->setAreas($viewMode);
 
-		return View::make('map.show', ['map' => $this->map, 'image' => $this->map->drawOverview->output()]);
+		return View::make('map.show', ['map' => $this->map, 'image' => $this->map->output(), 'activePage' => 'maps']);
 	}
 
 
