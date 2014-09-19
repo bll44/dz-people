@@ -84,7 +84,7 @@ class Map extends Eloquent {
 		return $this;
 	}
 
-	public function setAreas($viewMode, $user = null)
+	public function setAreas($viewMode, $object = null)
 	{
 		foreach($this->seats as $s)
 		{
@@ -99,14 +99,13 @@ class Map extends Eloquent {
 
 			if(null !== $s->user)
 			{
-				$area = "<area shape='rect' coords='{$x1},{$y1},{$x2},{$y2}'";
-				$area .= " href='";
-				$area .= URL::to("profile/{$s->user_id}");
-				$area .= "' title='{$s->user->displayname}'>";
+				$href = 'href="' . URL::to("profile/{$s->user_id}") . '"';
+				$title = 'title="' . $s->user->displayname . '"';
 			}
 			else
 			{
-				$area = "<area shape='rect' coords='{$x1}, {$y1}, {$x2}, {$y2}'>";
+				$href = '';
+				$title = '';
 			}
 
 			break;
@@ -130,18 +129,15 @@ class Map extends Eloquent {
 			}
 			else
 			{
-				$href = "href='" . URL::to("seat/{$s->id}/{$user->objectguid}") . "'";
+				$href = "href='" . URL::to("seat/{$s->id}/{$object->objectguid}/User") . "'";
 				$title = 'title="Empty"';
 			}
-
-			$area = str_replace(['[x1]', '[y1]', '[x2]', '[y2]', '[HREF]', '[TITLE]'],
-									[$x1, $y1, $x2, $y2, $href, $title], $this->areaTemplate);
 
 			break;
 
 			case 'userProfile' :
 
-
+			// code...
 
 			break;
 
@@ -164,12 +160,16 @@ class Map extends Eloquent {
 			}
 			else
 			{
-				$href = 'href="' . URL::to()
+				$href = 'href="' . URL::to("seat/{$s->id}/{$object->id}/Printer") . '"';
+				$title = 'title="Empty"';
 			}
 
 			break;
 
 			endswitch;
+
+			$area = str_replace(['[x1]', '[y1]', '[x2]', '[y2]', '[HREF]', '[TITLE]'],
+									[$x1, $y1, $x2, $y2, $href, $title], $this->areaTemplate);
 
 			$this->areas[] = $area;
 		}

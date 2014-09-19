@@ -48,7 +48,7 @@ class PrinterController extends \BaseController {
 		if($this->printer->save())
 		{
 			$map->drawOverview();
-			$map->setAreas('printmgmt');
+			$map->setAreas('printmgmt', $this->printer);
 			return View::make('map.show', ['map' => $map, 'image' => $map->output(), 'printer' => $this->printer]);
 		}
 

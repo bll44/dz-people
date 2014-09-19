@@ -2,12 +2,14 @@
 
 class SeatController extends \BaseController {
 
-	protected $user, $map;
+	protected $user, $map, $printer, $conferenceRoom;
 
-	public function __construct(User $user, Map $map)
+	public function __construct(User $user, Printer $printer, Map $map, ConferenceRoom $conferenceRoom)
 	{
 		$this->user = $user;
 		$this->map = $map;
+		$this->printer = $printer;
+		$this->conferenceRoom = $conferenceRoom;
 	}
 
 	/**
@@ -79,9 +81,15 @@ class SeatController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($seat_id, $user_id)
+	public function update($seat_id, $classId, $class)
 	{
-		$this->user = User::find($user_id);
+
+		$model = $class::find($classId);
+
+		if(null !== $model->seat)
+		{
+			// $model->seat->
+		}
 
 		if(null !== $this->user->seat)
 		{

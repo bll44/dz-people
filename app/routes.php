@@ -45,6 +45,15 @@ Route::group(['prefix' => 'coordinator'], function()
 	Route::get('/undo', 'CoordController@undo');
 });
 
-Route::get('seat/{id}/{userId}', 'SeatController@update');
+Route::get('seat/{id}/{classId}/{class}', 'SeatController@update');
 Route::get('seat/{userId}/{mapId}/edit/{viewMode}', 'SeatController@edit');
 Route::resource('seat', 'SeatController');
+
+// Route::get('classtest', function() {
+// 	$class = 'User';
+// 	$model = $class::find('691956c00ff98f4a842eb0c82ea1c1bb');
+
+// 	$model->
+
+// 	return $model->seat;
+// });
