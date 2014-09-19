@@ -23,7 +23,7 @@ class Map extends Eloquent {
 		return $this->hasMany('Seat');
 	}
 
-	protected function prepareDrawing()
+	protected function init_base()
 	{
 		$this->file = base_path().'/public/'.$this->image;
 		$this->jpeg_img = @imagecreatefromjpeg($this->file);
@@ -31,7 +31,7 @@ class Map extends Eloquent {
 
 	public function drawOverview()
 	{
-		$this->prepareDrawing();
+		$this->init_base();
 
 		$user_color = imagecolorallocate($this->jpeg_img, 210, 57, 57);
 		$printer_color = imagecolorallocate($this->jpeg_img, 100, 149, 237);
@@ -48,20 +48,43 @@ class Map extends Eloquent {
 		}
 
 		ob_start();
-
 		imagejpeg($this->jpeg_img);
-
 		$img_data = ob_get_contents();
-
 		ob_end_clean();
-
 		$this->img64 .= base64_encode($img_data);
 
 		return $this;
-
 	}
 
-	public function setAreas($viewMode)
+	public function drawProfileView($user)
+	{
+		$this->init_base();
+
+		$user_color = imagecolorallocate($this->jpeg_img, 210, 57, 57);
+		$printer_color = imagecolorallocate($this->jpeg_img, 100, 149, 237);
+		$conferenceRoom_color = imagecolorallocate($this->jpeg_img, 86, 175, 98);
+
+		foreach($this->seats as $s)
+		{
+			if($s->user_id === $user->objectguid)
+				imagefilledrectangle($this->jpeg_img, $s->x1, $s->y1, $s->x2, $s->y2, $user_color);
+			elseif(null !== $s->printer_id)
+				imagefilledrectangle($this->jpeg_img, $s->x1, $s->y1, $s->x2, $s->y2, $printer_color);
+			elseif(null !== $s->conferenceRoom_id)
+				imagefilledrectangle($this->jpeg_img, $s->x1, $s->y1, $s->x2, $s->y2, $conferenceRoom_color);
+		}
+
+
+		ob_start();
+		imagejpeg($this->jpeg_img);
+		$img_data = ob_get_contents();
+		ob_end_clean();
+		$this->img64 .= base64_encode($img_data);
+
+		return $this;
+	}
+
+	public function setAreas($viewMode, $user = null)
 	{
 		foreach($this->seats as $s)
 		{
@@ -93,12 +116,12 @@ class Map extends Eloquent {
 			if(null !== $s->user)
 			{
 				$href = '';
-				$title = $s->user->displayname;
+				$title = 'title="' . $s->user->displayname . '"';
 			}
 			elseif(null !== $s->printer)
 			{
 				$href = '';
-				$title = 'Printer: ' . $s->printer->name;
+				$title = 'title="Printer: ' . $s->printer->name . '"';
 			}
 			elseif(null !== $s->conferenceRoom)
 			{
@@ -107,11 +130,42 @@ class Map extends Eloquent {
 			}
 			else
 			{
-				$href = '';
+				$href = "href='" . URL::to("seat/{$s->id}/{$user->objectguid}") . "'";
+				$title = 'title="Empty"';
 			}
 
 			$area = str_replace(['[x1]', '[y1]', '[x2]', '[y2]', '[HREF]', '[TITLE]'],
 									[$x1, $y1, $x2, $y2, $href, $title], $this->areaTemplate);
+
+			break;
+
+			case 'userProfile' :
+
+
+
+			break;
+
+			case 'printmgmt' :
+
+			if(null !== $s->user)
+			{
+				$href = '';
+				$title = 'title="' . $s->user->displayname . '"';
+			}
+			elseif(null !== $s->printer)
+			{
+				$href = '';
+				$title = 'title="Printer: ' . $s->printer->name . '"';
+			}
+			elseif(null !== $s->conferenceRoom)
+			{
+				$href = '';
+				$title = 'title="Conference Room: ' . $s->conferenceRoom->name . '"';
+			}
+			else
+			{
+				$href = 'href="' . URL::to()
+			}
 
 			break;
 

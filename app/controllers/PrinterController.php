@@ -40,9 +40,6 @@ class PrinterController extends \BaseController {
 	public function store()
 	{
 		$map = Map::where('company_code', Input::get('company'))->where('floor', Input::get('floor'))->first();
-		$map->isPrinter = true;
-
-		$maps = Map::all();
 
 		$this->printer->name = Input::get('name');
 		$this->printer->path = Input::get('path');
@@ -50,8 +47,9 @@ class PrinterController extends \BaseController {
 
 		if($this->printer->save())
 		{
-			return View::make('map/printer_show', ['map' => $map, 'image' => $map->draw()->output(),
-									       		   'maps' => $maps, 'printer' => $this->printer]);
+			$map->drawOverview();
+			$map->setAreas('printmgmt');
+			return View::make('map.show', ['map' => $map, 'image' => $map->output(), 'printer' => $this->printer]);
 		}
 
 		// Session::put('newPrinter', $this->printer);

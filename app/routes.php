@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
 	Route::post('/content/upload/map', 'AdminController@uploadMap');
 	Route::get('/ldap/pull', 'LdapController@pull');
 
+	Route::get('seat/{id}/{printerId}', 'PrinterController@updatePrinterLocation');
 	Route::resource('printmgmt', 'PrinterController');
 
 	Route::get('/get_floors', function() {
@@ -44,6 +45,6 @@ Route::group(['prefix' => 'coordinator'], function()
 	Route::get('/undo', 'CoordController@undo');
 });
 
-Route::get('seat/{id}', 'SeatController@update');
+Route::get('seat/{id}/{userId}', 'SeatController@update');
 Route::get('seat/{userId}/{mapId}/edit/{viewMode}', 'SeatController@edit');
 Route::resource('seat', 'SeatController');

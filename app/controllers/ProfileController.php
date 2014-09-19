@@ -2,6 +2,13 @@
 
 class ProfileController extends \BaseController {
 
+	protected $user;
+
+	public function __construct(User $user)
+	{
+		$this->user = $user;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -43,23 +50,16 @@ class ProfileController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$user = User::find($id);
+		$this->user = User::find($id);
 
-		return View::make('profile.home', ['user' => $user]);
+		if(null !== $this->user->seat)
+		{
+			$map = Map::find($this->user->seat->map_id);
+			$map->drawProfileView($this->user);
+			return View::make('profile.show', ['user' => $this->user, 'image' => $map->output(), 'seat' => $this->user->seat]);
+		}
 
-		// if(null !== $seat = $user->seat)
-		// {
-		// 	$map = $seat->map;
-
-		// 	$map->isProfile = true;
-		// 	$map->profileSeat = $seat;
-
-		// 	return View::make('profile/home', ['user' => $user, 'image' => $map->draw()->output(), 'seat' => $seat]);
-		// }
-		// else
-		// {
-		// 	return View::make('profile/home', ['user' => $user]);
-		// }
+		return View::make('profile.show', ['user' => $this->user]);
 	}
 
 

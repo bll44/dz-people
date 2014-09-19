@@ -67,9 +67,9 @@ class SeatController extends \BaseController {
 		$this->map = Map::find($map_id);
 
 		if($viewMode === 'seatChange') $this->map->drawOverview();
-		$this->map->setAreas('seatChange');
+		$this->map->setAreas('seatChange', $this->user);
 
-		return View::make('map.show', ['user' => $user, 'map' => $this->map, 'image' => $this->map->output()]);
+		return View::make('map.show', ['user' => $this->user, 'map' => $this->map, 'image' => $this->map->output()]);
 	}
 
 
@@ -79,9 +79,21 @@ class SeatController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($seat_id, $user_id)
 	{
-		//
+		$this->user = User::find($user_id);
+
+		if(null !== $this->user->seat)
+		{
+			$this->user->seat->user_id = null;
+			$this->user->seat->save();
+		}
+
+		$seat = Seat::find($seat_id);
+		$seat->user_id = $this->user->objectguid;
+		$seat->save();
+
+		return Redirect::route('profile.show', ['profile' => $this->user->objectguid]);
 	}
 
 

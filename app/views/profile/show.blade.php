@@ -62,6 +62,7 @@
 				<div class="profile-btn-container">
 					<p>
 						@if( ! is_null($user->seat))
+
 						{{ Form::open(['url' => 'seat/' . $user->objectguid . '/' . $user->seat->map->id . '/edit', 'method' => 'get']) }}
 						{{ Form::submit('Change Seat', ['class' => 'btn btn-sm btn-primary col-lg-8 col-md-10 col-sm-offset-1 col-xs-offset-1 col-md-offset-0 col-lg-offset-0 col-sm-10 col-xs-10']) }}
 						{{ Form::close() }}
@@ -106,12 +107,14 @@
 		@else
 
 		<div class="text-center no-seat">
-			@if(Session::get('logged_in_user')->admin)
+			@if(Session::get('logged_in_user')->admin && is_null($user->seat))
 				<div>
 					{{ link_to("seat/{$user->objectguid}/1/edit/seatChange", "Assign a seat to {$user->firstname}", ['class' => 'btn btn-lg btn-primary']) }}
 				</div>
 			@else
-				<h3>No Seat</h3>
+				@if(is_null($user->seat))
+					<h3>No Seat</h3>
+				@endif
 			@endif
 		</div>
 
