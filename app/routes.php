@@ -1,5 +1,10 @@
 <?php
 
+Route::get('testing', function()
+{
+
+});
+
 Route::get('/', 'DirectoryController@index');
 
 Route::get('directory', 'DirectoryController@index');
@@ -9,7 +14,6 @@ Route::get('profile/changeseat', 'ProfileController@changeSeat');
 Route::resource('profile', 'ProfileController');
 
 Route::get('map/{map_id}/{mode}', 'MapController@show');
-
 Route::post('map/thumbs', 'MapController@getThumbs');
 Route::resource('map', 'MapController');
 
@@ -38,16 +42,19 @@ Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
 	});
 });
 
-Route::group(['prefix' => 'coordinator'], function()
+Route::group(['before' => 'admin'], function()
 {
-	Route::get('', 'CoordController@index');
-	Route::get('/save', 'CoordController@save');
-	Route::get('/undo', 'CoordController@undo');
+	// Route::get('coordinator', 'CoordinatorController@index');
+	Route::get('coordinator/save', 'CoordinatorController@save');
+	Route::get('coordinator/undo', 'CoordinatorController@undo');
+	Route::resource('coordinator', 'CoordinatorController');
 });
 
-Route::get('seat/{id}/{classId}/{class}', 'SeatController@update');
 Route::get('seat/{userId}/{mapId}/edit/{viewMode}', 'SeatController@edit');
+Route::get('seat/{seatId}/{class}/{classId}', 'SeatController@update');
 Route::resource('seat', 'SeatController');
+
+Route::get('/messages/{page}/{object}', 'AlertsController@show');
 
 // Route::get('classtest', function() {
 // 	$class = 'User';

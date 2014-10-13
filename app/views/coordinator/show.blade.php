@@ -121,10 +121,11 @@ function save()
 		shape.x2 = x2;
 	}
 
+	var map_id = "{{ $map->id }}";
 	$.ajax({
 		url: "{{ URL::to('coordinator/save') }}",
 		type: 'GET',
-		data: {x1: shape.x1, y1: shape.y1, x2: shape.x2, y2: shape.y2, map_id: 1},
+		data: {x1: shape.x1, y1: shape.y1, x2: shape.x2, y2: shape.y2, map_id: map_id},
 		dataType: 'json'
 	}).done(function(data) {
 		console.log(data);

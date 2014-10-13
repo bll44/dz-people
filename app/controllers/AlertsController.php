@@ -1,13 +1,6 @@
 <?php
 
-class MapController extends \BaseController {
-
-	protected $map;
-
-	public function __construct(Map $map)
-	{
-		$this->map = $map;
-	}
+class AlertsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -16,9 +9,7 @@ class MapController extends \BaseController {
 	 */
 	public function index()
 	{
-		$maps = Map::all();
-
-		return View::make('map.index', [ 'maps' => $maps, 'activePage' => 'maps', 'mode' => 'overview' ]);
+		//
 	}
 
 
@@ -50,18 +41,9 @@ class MapController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id, $viewMode)
+	public function show($page, $object)
 	{
-		$this->map = Map::find($id);
-
-		if($viewMode === 'overview') $this->map->drawOverview();
-
-		$this->map->setAreas($viewMode);
-
-		$allMaps = Map::all();
-
-		return View::make('map.show', ['map' => $this->map, 'allMaps' => $allMaps, 'image' => $this->map->output(),
-						 			   'activePage' => 'maps', 'viewMode' => $viewMode]);
+		return View::make('messages.'.$page, ['object' => $object]);
 	}
 
 

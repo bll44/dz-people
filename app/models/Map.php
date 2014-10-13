@@ -129,7 +129,7 @@ class Map extends Eloquent {
 			}
 			else
 			{
-				$href = "href='" . URL::to("seat/{$s->id}/{$object->objectguid}/User") . "'";
+				$href = "href='" . URL::to("seat/{$s->id}/User/{$object->objectguid}") . "'";
 				$title = 'title="Empty"';
 			}
 
@@ -160,7 +160,7 @@ class Map extends Eloquent {
 			}
 			else
 			{
-				$href = 'href="' . URL::to("seat/{$s->id}/{$object->id}/Printer") . '"';
+				$href = 'href="' . URL::to("seat/{$s->id}/Printer/{$object->id}") . '"';
 				$title = 'title="Empty"';
 			}
 

@@ -63,7 +63,7 @@
 					<p>
 						@if( ! is_null($user->seat))
 
-						{{ Form::open(['url' => 'seat/' . $user->objectguid . '/' . $user->seat->map->id . '/edit', 'method' => 'get']) }}
+						{{ Form::open(['url' => 'seat/' . $user->objectguid . '/' . $user->seat->map->id . '/edit/seatChange', 'method' => 'get']) }}
 						{{ Form::submit('Change Seat', ['class' => 'btn btn-sm btn-primary col-lg-8 col-md-10 col-sm-offset-1 col-xs-offset-1 col-md-offset-0 col-lg-offset-0 col-sm-10 col-xs-10']) }}
 						{{ Form::close() }}
 						@endif

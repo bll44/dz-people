@@ -29,6 +29,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public $attributes = array();
 
+	public function getIdAttribute()
+	{
+		return $this->objectguid;
+	}
+
 	public function checkExistence()
 	{
 		if( ! is_null(User::find($this->objectguid)))

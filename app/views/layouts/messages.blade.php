@@ -11,7 +11,7 @@
 
 	<div class="container">
 
-	@yield('content')
+	<p class="alert alert-success">@yield('message')</p>
 
 	</div>
 

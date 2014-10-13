@@ -11,14 +11,38 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				@if($printers->count() > 0)
-				<ul class="list-group">
-					@foreach($printers as $printer)
-
-					<a href="#" class="list-group-item"><i class="fa fa-caret-right fa-fw"></i> {{ $printer->name }}</a>
-
-					@endforeach
-				</ul>
-				<!-- /.list-group -->
+				<div class="panel-group" id="accordion">
+				<?php $i = 0 ?>
+				@foreach($printers as $printer)
+					<div class="panel panel-default">
+						<div class="panel-heading">
+					    	<h4 class="panel-title">
+					    		<a data-toggle="collapse" data-parent="#accordion" href="#printer{{ $i }}">
+					    			<i class="fa fa-caret-right"></i> {{ $printer->name }}
+					    		</a>
+					    	</h4>
+					    </div>
+					    <!-- /.panel-heading -->
+						<div id="printer{{ $i }}" class="panel-collapse collapse in">
+					    	<div class="panel-body">
+					    		<div>
+							        {{ $printer->unc_path }}
+						        </div>
+						        <div>
+						        {{ Form::open(['route' => ['admin.printmgmt.destroy', $printer->id], 'method' => 'delete']) }}
+								{{ Form::submit('Delete', ['class' => 'btn btn-link']) }}
+						        {{ Form::close() }}
+						        </div>
+					    	</div>
+					    	<!-- /.panel-body -->
+	    				</div>
+	    				<!-- /.panel-collapse -->
+    				</div>
+    				<!-- /.panel -->
+    				<?php $i++ ?>
+    				@endforeach
+				</div>
+				<!-- /.panel-group -->
 				@else
 
 					<h5>No Printers</h5>
@@ -32,7 +56,7 @@
 	<!-- /.col-lg-4 -->
 
 	<div class="col-lg-4 col-md-6">
-		<div class="panel panel-green">
+		<div class="panel panel-default">
 			<div class="panel-heading">
 				<p class="panel-title"><i class="fa fa-plus fa-fw"></i> Add Printer</p>
 			</div>
@@ -64,7 +88,7 @@
 					{{ Form::select('floor', array(), null, ['class' => 'form-control hidden floor_dropdown', 'placeholder' => 'Floor #']) }}
 				</div>
 
-				{{ Form::submit('Add Printer', ['class' => 'btn btn-success col-lg-12 col-md-12 col-sm-12 col-xs-12']) }}
+				{{ Form::submit('Add Printer', ['class' => 'btn btn-primary']) }}
 
 				{{ Form::close() }}
 			</div>

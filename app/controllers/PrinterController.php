@@ -42,7 +42,7 @@ class PrinterController extends \BaseController {
 		$map = Map::where('company_code', Input::get('company'))->where('floor', Input::get('floor'))->first();
 
 		$this->printer->name = Input::get('name');
-		$this->printer->path = Input::get('path');
+		$this->printer->unc_path = Input::get('path');
 		$this->printer->map_id = $map->id;
 
 		if($this->printer->save())
@@ -51,8 +51,6 @@ class PrinterController extends \BaseController {
 			$map->setAreas('printmgmt', $this->printer);
 			return View::make('map.show', ['map' => $map, 'image' => $map->output(), 'printer' => $this->printer]);
 		}
-
-		// Session::put('newPrinter', $this->printer);
 	}
 
 
@@ -64,7 +62,7 @@ class PrinterController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		return 'test';
 	}
 
 
@@ -100,7 +98,14 @@ class PrinterController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$this->printer = Printer::find($id);
+		if(null !== ($seat = $this->printer->seat))
+		{
+			$seat->printer_id = null;
+			$seat->save();
+		}
+		$this->printer->delete();
+		return Redirect::route('admin.printmgmt.index');
 	}
 
 

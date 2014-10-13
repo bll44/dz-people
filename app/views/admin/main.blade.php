@@ -122,7 +122,7 @@
 						</div>
 					</div>
 				</div>
-				<a href="{{ URL::to('coordinator') }}">
+				<a href="{{ URL::route('coordinator.index') }}">
 					<div class="panel-footer">
 						<span class="pull-left">Open Seat Coordinator App</span>
 						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

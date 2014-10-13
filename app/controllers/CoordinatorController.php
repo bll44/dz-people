@@ -1,13 +1,11 @@
 <?php
 
-class CoordController extends \BaseController {
+class CoordinatorController extends \BaseController {
 
 	public function index()
 	{
-		$map = Map::find(1);
-		$map->isMaintenance = true;
-
-		return View::make('coordinator/main', ['map' => $map, 'activePage' => 'coordinator']);
+		$maps = Map::all();
+		return View::make('coordinator.list', ['maps' => $maps, 'activePage' => 'coordinator']);
 	}
 
 	public function save()
@@ -41,6 +39,14 @@ class CoordController extends \BaseController {
 		$map->isMaintenance = true;
 
 		return json_encode(['message' => 'Successfully deleted seat ' . $seat_id, 'map_src' => $map->draw()->output()]);
+	}
+
+	public function show($id)
+	{
+		$map = Map::find($id);
+		$map->isMaintenance = true;
+
+		return View::make('coordinator/show', ['map' => $map, 'activePage' => 'coordinator']);
 	}
 
 }

@@ -16,6 +16,10 @@ area.printer:hover {
 	cursor: pointer;
 }
 
+.clearfix {
+	clear: both;
+}
+
 </style>
 
 <div class="pull-right profile-seat-btn-hud">
@@ -32,7 +36,7 @@ area.printer:hover {
 @include('map/partials/map')
 
 
-<div class="modal fade col-lg-12 col-md-12 col-sm-12 col-xs-12" id="choose_map">
+<div class="modal fade" id="choose_map">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -40,9 +44,34 @@ area.printer:hover {
 				<h4 class="modal-title">Choose a Different Map</h4>
 			</div>
 			<div class="modal-body">
+				<div class="map_thumb_wrapper clearfix">
 
-				<div class="map_thumb_wrapper">
+					@foreach($allMaps as $m)
 
+					<!-- <div class="row"> -->
+						<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+							<div class="thumbnail">
+								{{ HTML::image($m->image) }}
+								<div class="caption">
+									<h3>{{ $m->city.', '.$m->floor }}</h3>
+									<p>{{ $m->description }}</p>
+									<p>
+										@if($viewMode ==='seatChange')
+											{{ link_to("seat/{$user->id}/{$m->id}/edit/seatChange", 'View', ['role' => 'button', 'class' => 'btn btn-success']) }}
+										@elseif($viewMode === 'overview')
+											{{ link_to("map/{$m->id}/overview", 'View', ['role' => 'button', 'class' => 'btn btn-success']) }}
+										@endif
+									</p>
+								</div>
+								<!-- /.caption -->
+							</div>
+							<!-- /.thumbnail -->
+						</div>
+						<!-- /.column -->
+					<!-- </div> -->
+					<!-- /.row -->
+
+					@endforeach
 
 				</div>
 				<!-- /.map_thumb_wrapper -->
