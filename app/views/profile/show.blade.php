@@ -1,11 +1,16 @@
 @extends('layouts.master')
 
-@section('content')
+@section('styles')
 
 <style>
-
+#show-user-location-btn {
+	margin-top: 40px;
+}
 </style>
 
+@stop
+
+@section('content')
 
 <div class="row">
 
@@ -91,41 +96,58 @@
 </div>
 <!-- /.row -->
 
-
-
-
 @if(isset($image) && isset($seat))
 
+<div class="text-center" id="show-user-location-btn">
+	<button type="button" class="btn btn-primary btn-lg" id="show-user-location">
+		Click Here to See Where {{ Session::get('logged_in_user')->firstname }} Sits
+	</button>
+</div>
+
+<div class="user-location-map-container hidden">
 	<div class="row">
 
 		<img src="{{ $image }}" class="map-img" usemap="#seat-map"/>
 
 		<map name="seat-map">
 			<area shape="rect" coords="{{ $seat->x1 }}, {{ $seat->y1 }}, {{ $seat->x2 }}, {{ $seat->y2 }}">
-		</map><!-- /seat-map -->
+		</map>
+		<!-- /seat-map -->
 
-		@else
+@else
 
 		<div class="text-center no-seat">
 			@if(Session::get('logged_in_user')->admin && is_null($user->seat))
-				<div>
-					{{ link_to("seat/{$user->objectguid}/1/edit/seatChange", "Assign a seat to {$user->firstname}", ['class' => 'btn btn-lg btn-primary']) }}
-				</div>
+			<div>
+				{{ link_to("seat/{$user->objectguid}/1/edit/seatChange", "Assign a seat to {$user->firstname}", ['class' => 'btn btn-lg btn-primary']) }}
+			</div>
 			@else
 				@if(is_null($user->seat))
-					<h3>No Seat</h3>
+				<h3>No Seat</h3>
 				@endif
 			@endif
 		</div>
+		<!-- /.no-seat -->
 
 	</div>
 	<!-- /.row -->
+</div>
+<!-- /.user-map-container -->
 @endif
 
 @stop
 
+@section('scripts')
 
+<script>
 
+$(document).ready(function() {
+	$('#show-user-location').click(function() {
+		$(this).addClass('hidden');
+		$('.user-location-map-container').removeClass('hidden');
+	});
+});
 
+</script>
 
-
+@stop

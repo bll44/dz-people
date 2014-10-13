@@ -16,7 +16,8 @@ class CreateConferenceRoomsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->integer('capacity');
+			$table->integer('capacity')->nullable();
+			$table->integer('map_id')->nullable();
 			$table->timestamps();
 		});
 	}

@@ -1,12 +1,5 @@
 <?php
 
-Route::get('testing', function()
-{
-
-
-
-});
-
 Route::get('/', 'DirectoryController@index');
 
 Route::get('directory', 'DirectoryController@index');
@@ -16,7 +9,7 @@ Route::get('profile/changeseat', 'ProfileController@changeSeat');
 Route::resource('profile', 'ProfileController');
 
 Route::get('map/{map_id}/{mode}', 'MapController@show');
-Route::post('map/thumbs', 'MapController@getThumbs');
+// Route::post('map/thumbs', 'MapController@getThumbs');
 Route::resource('map', 'MapController');
 
 // Admin function routes

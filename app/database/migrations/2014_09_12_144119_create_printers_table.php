@@ -16,11 +16,7 @@ class CreatePrintersTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->string('path');
-			$table->integer('x1')->nullable();
-			$table->integer('y1')->nullable();
-			$table->integer('x2')->nullable();
-			$table->integer('y2')->nullable();
+			$table->string('unc_path')->nullable();
 			$table->integer('map_id');
 			$table->timestamps();
 		});

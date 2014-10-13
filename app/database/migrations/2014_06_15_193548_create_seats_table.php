@@ -19,8 +19,10 @@ class CreateSeatsTable extends Migration {
 			$table->integer('y1');
 			$table->integer('x2');
 			$table->integer('y2');
+			$table->integer('map_id')->nullable();
 			$table->string('user_id')->nullable();
-			$table->integer('map_id');
+			$table->integer('printer_id')->nullable();
+			$table->integer('conferenceroom_id')->nullable();
 		});
 	}
 
