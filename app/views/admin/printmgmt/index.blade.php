@@ -75,8 +75,8 @@
 				</div>
 
 				<div class="form-group">
-					{{ Form::label('company', 'Company') }}
-					{{ Form::select('company', array(
+					{{ Form::label('company_code', 'Company') }}
+					{{ Form::select('company_code', array(
 						'' => ' --- ',
 						'dayzim' => 'Day & Zimmermann',
 						'yoh' => 'Yoh'

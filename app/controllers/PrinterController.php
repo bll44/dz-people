@@ -39,18 +39,25 @@ class PrinterController extends \BaseController {
 	 */
 	public function store()
 	{
-		$map = Map::where('company_code', Input::get('company'))->where('floor', Input::get('floor'))->first();
+		$map = Map::where('company_code', Input::get('company_code'))->where('floor', Input::get('floor'))->first();
 
 		$this->printer->name = Input::get('name');
 		$this->printer->unc_path = Input::get('path');
 		$this->printer->map_id = $map->id;
 
 		if($this->printer->save())
-		{
-			$map->drawOverview();
-			$map->setAreas('printmgmt', $this->printer);
-			return View::make('map.show', ['map' => $map, 'image' => $map->output(), 'printer' => $this->printer]);
-		}
+			return $this->seatPrinter($this->printer->id, $this->printer->map->id);
+	}
+
+	public function seatPrinter($printerId, $mapId = null)
+	{
+		$this->printer = Printer::find($printerId);
+		$map = Map::find($mapId);
+
+		$map->drawOverview();
+		$map->setAreas('printmgmt', $this->printer);
+		return View::make('map.show', ['map' => $map, 'allMaps' => Map::all(), 'image' => $map->output(),
+								   	   'printer' => $this->printer, 'viewMode' => 'printmgmt']);
 	}
 
 

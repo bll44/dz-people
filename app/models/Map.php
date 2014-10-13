@@ -137,7 +137,7 @@ class Map extends Eloquent {
 
 			case 'userProfile' :
 
-			// code...
+			// code
 
 			break;
 

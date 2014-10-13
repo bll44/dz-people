@@ -9,4 +9,9 @@ class Printer extends Eloquent {
 		return $this->hasOne('Seat');
 	}
 
+	public function map()
+	{
+		return $this->belongsTo('Map');
+	}
+
 }

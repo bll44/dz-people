@@ -101,6 +101,8 @@ class SeatController extends \BaseController {
 
 		if($class === 'User')
 			return Redirect::route('profile.show', $classId);
+		elseif($class === 'Printer')
+			return Redirect::route('admin.printmgmt.index');
 
 		return Redirect::to('/messages/object_moved/'.$class);
 	}

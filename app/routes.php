@@ -3,6 +3,8 @@
 Route::get('testing', function()
 {
 
+
+
 });
 
 Route::get('/', 'DirectoryController@index');
@@ -27,7 +29,8 @@ Route::group(['prefix' => 'admin', 'before' => 'admin'], function()
 	Route::post('/content/upload/map', 'AdminController@uploadMap');
 	Route::get('/ldap/pull', 'LdapController@pull');
 
-	Route::get('seat/{id}/{printerId}', 'PrinterController@updatePrinterLocation');
+	// Printer management
+	Route::get('printmgmt/seatPrinter/{printerId}/{mapId}', ['as' => 'admin.printmgmt.seat', 'uses' => 'PrinterController@seatPrinter']);
 	Route::resource('printmgmt', 'PrinterController');
 
 	Route::get('/get_floors', function() {
