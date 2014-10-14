@@ -17,7 +17,7 @@
 <div class="col-lg-offset-2 col-md-offset-2 col-lg-4 col-md-4 col-xs-offset-0 col-sm-offset-0 col-xs-12 col-sm-6">
 	{{ Form::open(['url' => 'directory/search', 'method' => 'get']) }}
 		<div class="input-group input-group-sm" id="directory-search">
-			<input type="text" name="query" class="form-control" placeholder="Search directory..." value="{{ $query or '' }}">
+			<input type="text" name="query" class="form-control" placeholder="Search directory..." value="{{ $query or '' }}" id="directory-search-input">
 			<span class="input-group-btn">
 				<button type="submit" class="btn btn-default" id="search-btn">Search</button>
 			</span>

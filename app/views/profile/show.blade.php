@@ -106,7 +106,7 @@
 
 <div class="user-location-map-container hidden">
 	<div class="row">
-
+		<h3>{{ $map->city }}, Floor {{ $map->floor }}</h3>
 		<img src="{{ $image }}" class="map-img" usemap="#seat-map"/>
 
 		<map name="seat-map">

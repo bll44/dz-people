@@ -56,7 +56,7 @@ class ProfileController extends \BaseController {
 		{
 			$map = Map::find($this->user->seat->map_id);
 			$map->drawProfileView($this->user);
-			return View::make('profile.show', ['user' => $this->user, 'image' => $map->output(), 'seat' => $this->user->seat]);
+			return View::make('profile.show', ['map' => $map, 'user' => $this->user, 'image' => $map->output(), 'seat' => $this->user->seat]);
 		}
 
 		return View::make('profile.show', ['user' => $this->user]);
