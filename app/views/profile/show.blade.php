@@ -100,7 +100,7 @@
 
 <div class="text-center" id="show-user-location-btn">
 	<button type="button" class="btn btn-primary btn-lg" id="show-user-location">
-		Click Here to See Where {{ Session::get('logged_in_user')->firstname }} Sits
+		Click Here to See Where {{ $user->firstname }} Sits
 	</button>
 </div>
 

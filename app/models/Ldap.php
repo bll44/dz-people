@@ -6,7 +6,7 @@ class Ldap {
 	protected static $server = '172.25.0.23';
 	protected static $port = 389;
 	protected static $rdn = 'adm_latshab';
-	protected static $password = 'myDayzimpwdbl02@';
+	protected static $password = 'myDayzimpwdbl03#';
 	protected static $root_dn = ['OU=Users', 'OU=1500 SG', 'OU=Philadelphia\, PA', 'OU=DZ - Corporate', 'DC=corp', 'DC=dayzim', 'DC=com'];
 
 	/* Info for 536 N 34th Street */
