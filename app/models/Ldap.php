@@ -12,8 +12,8 @@ class Ldap {
 	/* Info for 536 N 34th Street */
 	// protected static $server = '10.0.0.16';
 	// protected static $port = 389;
-	// protected static $rdn = '_phpldap';
-	// protected static $password = '536N34th';
+	// protected static $rdn = 'latshab';
+	// protected static $password = 'Dayzimbl3';
 	// protected static $root_dn = ['OU=Users', 'OU=536N34th', 'DC=cash', 'DC=money', 'DC=com'];
 
 
